@@ -1,0 +1,1246 @@
+{
+  "client": "Thunder Client",
+  "collectionName": "REST API Tester - Portfolio API",
+  "collectionId": "4241eeaf-208a-46fd-97d0-f9e0498f4832",
+  "dateExported": "2026-11-20T21:14:30.791Z",
+  "version": "1.2",
+  "folders": [
+    {
+      "_id": "28e4ac00-b9b4-4ac9-b343-6f2dab1b43df",
+      "name": "0. Health check",
+      "containerId": "",
+      "created": "2026-11-20T21:14:30.791Z",
+      "sortNum": 10000
+    },
+    {
+      "_id": "bc1dd263-fa5b-4efd-9c92-c8dd06025433",
+      "name": "1. Sign up & sign in",
+      "containerId": "",
+      "created": "2026-11-20T21:14:30.791Z",
+      "sortNum": 20000
+    },
+    {
+      "_id": "4ea89afd-6889-42e2-93cf-ffea8fa2e005",
+      "name": "2. Projects CRUD (Bearer token)",
+      "containerId": "",
+      "created": "2026-11-20T21:14:30.791Z",
+      "sortNum": 30000
+    },
+    {
+      "_id": "2049d2cd-023b-448c-af10-4fde22b1ca32",
+      "name": "3. Contacts CRUD",
+      "containerId": "",
+      "created": "2026-11-20T21:14:30.791Z",
+      "sortNum": 40000
+    },
+    {
+      "_id": "c2aa1739-6ab5-450e-bd0c-e56ecee1392d",
+      "name": "4. Qualifications CRUD",
+      "containerId": "",
+      "created": "2026-11-20T21:14:30.791Z",
+      "sortNum": 50000
+    },
+    {
+      "_id": "82ce9a09-5f78-4d0e-b921-b397182b4310",
+      "name": "5. Error handling",
+      "containerId": "",
+      "created": "2026-11-20T21:14:30.791Z",
+      "sortNum": 60000
+    },
+    {
+      "_id": "80473797-9c3a-4c37-9322-29896fdba1fb",
+      "name": "6. User profile & clean up",
+      "containerId": "",
+      "created": "2026-11-20T21:14:30.791Z",
+      "sortNum": 70000
+    }
+  ],
+  "requests": [
+    {
+      "_id": "cc886d26-bdd4-4d05-9839-e4f7efaa2d01",
+      "colId": "4241eeaf-208a-46fd-97d0-f9e0498f4832",
+      "containerId": "28e4ac00-b9b4-4ac9-b343-6f2dab1b43df",
+      "name": "GET / - API is running",
+      "url": "http://localhost:3000/",
+      "method": "GET",
+      "sortNum": 10000,
+      "created": "2026-11-20T21:14:30.791Z",
+      "modified": "2026-11-20T21:14:30.791Z",
+      "headers": [],
+      "params": [],
+      "auth": {
+        "type": "none"
+      },
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "200"
+        },
+        {
+          "type": "Content-Type",
+          "custom": "",
+          "action": "contains",
+          "value": "application/json"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.message",
+          "action": "contains",
+          "value": "Welcome"
+        }
+      ]
+    },
+    {
+      "_id": "bef4707d-712f-4c27-9f5b-a77d2d6f27eb",
+      "colId": "4241eeaf-208a-46fd-97d0-f9e0498f4832",
+      "containerId": "bc1dd263-fa5b-4efd-9c92-c8dd06025433",
+      "name": "POST sign up - 201 Created",
+      "url": "http://localhost:3000/api/users",
+      "method": "POST",
+      "sortNum": 20000,
+      "created": "2026-11-20T21:14:30.791Z",
+      "modified": "2026-11-20T21:14:30.791Z",
+      "headers": [],
+      "params": [],
+      "auth": {
+        "type": "none"
+      },
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "201"
+        },
+        {
+          "type": "Content-Type",
+          "custom": "",
+          "action": "contains",
+          "value": "application/json"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.message",
+          "action": "equal",
+          "value": "Successfully signed up!"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.user.email",
+          "action": "equal",
+          "value": "tester@example.com"
+        },
+        {
+          "type": "set-env-var",
+          "custom": "json.user._id",
+          "action": "setto",
+          "value": "{{userId}}"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": [
+          "{",
+          "  \"name\": \"API Tester\",",
+          "  \"email\": \"tester@example.com\",",
+          "  \"password\": \"secret123\"",
+          "}"
+        ],
+        "form": []
+      }
+    },
+    {
+      "_id": "a1124b17-b427-45fb-8299-84990738d0ce",
+      "colId": "4241eeaf-208a-46fd-97d0-f9e0498f4832",
+      "containerId": "bc1dd263-fa5b-4efd-9c92-c8dd06025433",
+      "name": "POST sign up again - 409 duplicate email",
+      "url": "http://localhost:3000/api/users",
+      "method": "POST",
+      "sortNum": 30000,
+      "created": "2026-11-20T21:14:30.791Z",
+      "modified": "2026-11-20T21:14:30.791Z",
+      "headers": [],
+      "params": [],
+      "auth": {
+        "type": "none"
+      },
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "409"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.error",
+          "action": "equal",
+          "value": "Email already exists"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": [
+          "{",
+          "  \"name\": \"API Tester\",",
+          "  \"email\": \"tester@example.com\",",
+          "  \"password\": \"secret123\"",
+          "}"
+        ],
+        "form": []
+      }
+    },
+    {
+      "_id": "a5df3716-411b-4a7d-9baa-e6ec2d00f9b0",
+      "colId": "4241eeaf-208a-46fd-97d0-f9e0498f4832",
+      "containerId": "bc1dd263-fa5b-4efd-9c92-c8dd06025433",
+      "name": "POST sign in wrong password - 401",
+      "url": "http://localhost:3000/auth/signin",
+      "method": "POST",
+      "sortNum": 40000,
+      "created": "2026-11-20T21:14:30.791Z",
+      "modified": "2026-11-20T21:14:30.791Z",
+      "headers": [],
+      "params": [],
+      "auth": {
+        "type": "none"
+      },
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "401"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.error",
+          "action": "equal",
+          "value": "Email and password don't match."
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": [
+          "{",
+          "  \"email\": \"tester@example.com\",",
+          "  \"password\": \"wrong-password\"",
+          "}"
+        ],
+        "form": []
+      }
+    },
+    {
+      "_id": "3e73cb8f-6d5f-4396-9fa7-885fe4b27318",
+      "colId": "4241eeaf-208a-46fd-97d0-f9e0498f4832",
+      "containerId": "bc1dd263-fa5b-4efd-9c92-c8dd06025433",
+      "name": "POST sign in - 200 + save token",
+      "url": "http://localhost:3000/auth/signin",
+      "method": "POST",
+      "sortNum": 50000,
+      "created": "2026-11-20T21:14:30.791Z",
+      "modified": "2026-11-20T21:14:30.791Z",
+      "headers": [],
+      "params": [],
+      "auth": {
+        "type": "none"
+      },
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "200"
+        },
+        {
+          "type": "Content-Type",
+          "custom": "",
+          "action": "contains",
+          "value": "application/json"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.user.email",
+          "action": "equal",
+          "value": "tester@example.com"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.token",
+          "action": "istype",
+          "value": "string"
+        },
+        {
+          "type": "set-env-var",
+          "custom": "json.token",
+          "action": "setto",
+          "value": "{{token}}"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": [
+          "{",
+          "  \"email\": \"tester@example.com\",",
+          "  \"password\": \"secret123\"",
+          "}"
+        ],
+        "form": []
+      }
+    },
+    {
+      "_id": "8ac5e81f-78e9-4a65-8a26-91076d016ccf",
+      "colId": "4241eeaf-208a-46fd-97d0-f9e0498f4832",
+      "containerId": "4ea89afd-6889-42e2-93cf-ffea8fa2e005",
+      "name": "POST project without token - 401",
+      "url": "http://localhost:3000/api/projects",
+      "method": "POST",
+      "sortNum": 60000,
+      "created": "2026-11-20T21:14:30.791Z",
+      "modified": "2026-11-20T21:14:30.791Z",
+      "headers": [],
+      "params": [],
+      "auth": {
+        "type": "none"
+      },
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "401"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.error",
+          "action": "equal",
+          "value": "A valid Bearer token is required"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": [
+          "{",
+          "  \"title\": \"Should fail\"",
+          "}"
+        ],
+        "form": []
+      }
+    },
+    {
+      "_id": "cf6e9772-829b-4a9d-8470-81fd51dbe6c3",
+      "colId": "4241eeaf-208a-46fd-97d0-f9e0498f4832",
+      "containerId": "4ea89afd-6889-42e2-93cf-ffea8fa2e005",
+      "name": "POST project - 201 Created",
+      "url": "http://localhost:3000/api/projects",
+      "method": "POST",
+      "sortNum": 70000,
+      "created": "2026-11-20T21:14:30.791Z",
+      "modified": "2026-11-20T21:14:30.791Z",
+      "headers": [],
+      "params": [],
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{token}}"
+      },
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "201"
+        },
+        {
+          "type": "Content-Type",
+          "custom": "",
+          "action": "contains",
+          "value": "application/json"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.title",
+          "action": "equal",
+          "value": "Inventory API"
+        },
+        {
+          "type": "json-query",
+          "custom": "json._id",
+          "action": "istype",
+          "value": "string"
+        },
+        {
+          "type": "set-env-var",
+          "custom": "json._id",
+          "action": "setto",
+          "value": "{{projectId}}"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": [
+          "{",
+          "  \"title\": \"Inventory API\",",
+          "  \"firstname\": \"API\",",
+          "  \"lastname\": \"Tester\",",
+          "  \"email\": \"tester@example.com\",",
+          "  \"completion\": \"2026-11-01\",",
+          "  \"description\": \"REST API for an inventory app\"",
+          "}"
+        ],
+        "form": []
+      }
+    },
+    {
+      "_id": "6c58e2b7-5c6a-44d7-9910-797fa325dad2",
+      "colId": "4241eeaf-208a-46fd-97d0-f9e0498f4832",
+      "containerId": "4ea89afd-6889-42e2-93cf-ffea8fa2e005",
+      "name": "GET all projects - 200",
+      "url": "http://localhost:3000/api/projects",
+      "method": "GET",
+      "sortNum": 80000,
+      "created": "2026-11-20T21:14:30.791Z",
+      "modified": "2026-11-20T21:14:30.791Z",
+      "headers": [],
+      "params": [],
+      "auth": {
+        "type": "none"
+      },
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "200"
+        },
+        {
+          "type": "Content-Type",
+          "custom": "",
+          "action": "contains",
+          "value": "application/json"
+        },
+        {
+          "type": "json-query",
+          "custom": "json",
+          "action": "istype",
+          "value": "array"
+        }
+      ]
+    },
+    {
+      "_id": "0aa76016-379f-49b3-acd8-c1b78a80d9e2",
+      "colId": "4241eeaf-208a-46fd-97d0-f9e0498f4832",
+      "containerId": "4ea89afd-6889-42e2-93cf-ffea8fa2e005",
+      "name": "GET one project - 200",
+      "url": "http://localhost:3000/api/projects/{{projectId}}",
+      "method": "GET",
+      "sortNum": 90000,
+      "created": "2026-11-20T21:14:30.791Z",
+      "modified": "2026-11-20T21:14:30.791Z",
+      "headers": [],
+      "params": [],
+      "auth": {
+        "type": "none"
+      },
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "200"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.title",
+          "action": "equal",
+          "value": "Inventory API"
+        }
+      ]
+    },
+    {
+      "_id": "e33a5c2f-45be-4769-bc86-e2b26b75612a",
+      "colId": "4241eeaf-208a-46fd-97d0-f9e0498f4832",
+      "containerId": "4ea89afd-6889-42e2-93cf-ffea8fa2e005",
+      "name": "PUT update project - 200",
+      "url": "http://localhost:3000/api/projects/{{projectId}}",
+      "method": "PUT",
+      "sortNum": 100000,
+      "created": "2026-11-20T21:14:30.791Z",
+      "modified": "2026-11-20T21:14:30.791Z",
+      "headers": [],
+      "params": [],
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{token}}"
+      },
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "200"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.title",
+          "action": "equal",
+          "value": "Inventory API v2"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": [
+          "{",
+          "  \"title\": \"Inventory API v2\"",
+          "}"
+        ],
+        "form": []
+      }
+    },
+    {
+      "_id": "dac16280-7391-45d8-9fe2-2037454e3bb9",
+      "colId": "4241eeaf-208a-46fd-97d0-f9e0498f4832",
+      "containerId": "4ea89afd-6889-42e2-93cf-ffea8fa2e005",
+      "name": "DELETE project - 200",
+      "url": "http://localhost:3000/api/projects/{{projectId}}",
+      "method": "DELETE",
+      "sortNum": 110000,
+      "created": "2026-11-20T21:14:30.791Z",
+      "modified": "2026-11-20T21:14:30.791Z",
+      "headers": [],
+      "params": [],
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{token}}"
+      },
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "200"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.message",
+          "action": "equal",
+          "value": "Project deleted"
+        }
+      ]
+    },
+    {
+      "_id": "f9c5eaaf-dffb-44c6-b456-e9998b496f7b",
+      "colId": "4241eeaf-208a-46fd-97d0-f9e0498f4832",
+      "containerId": "4ea89afd-6889-42e2-93cf-ffea8fa2e005",
+      "name": "GET deleted project - 404",
+      "url": "http://localhost:3000/api/projects/{{projectId}}",
+      "method": "GET",
+      "sortNum": 120000,
+      "created": "2026-11-20T21:14:30.791Z",
+      "modified": "2026-11-20T21:14:30.791Z",
+      "headers": [],
+      "params": [],
+      "auth": {
+        "type": "none"
+      },
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "404"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.error",
+          "action": "equal",
+          "value": "Project not found"
+        }
+      ]
+    },
+    {
+      "_id": "b646208d-f257-4879-b327-37979be69e42",
+      "colId": "4241eeaf-208a-46fd-97d0-f9e0498f4832",
+      "containerId": "2049d2cd-023b-448c-af10-4fde22b1ca32",
+      "name": "POST contact (public form) - 201",
+      "url": "http://localhost:3000/api/contacts",
+      "method": "POST",
+      "sortNum": 130000,
+      "created": "2026-11-20T21:14:30.791Z",
+      "modified": "2026-11-20T21:14:30.791Z",
+      "headers": [],
+      "params": [],
+      "auth": {
+        "type": "none"
+      },
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "201"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.email",
+          "action": "equal",
+          "value": "ada@example.com"
+        },
+        {
+          "type": "set-env-var",
+          "custom": "json._id",
+          "action": "setto",
+          "value": "{{contactId}}"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": [
+          "{",
+          "  \"firstname\": \"Ada\",",
+          "  \"lastname\": \"Lovelace\",",
+          "  \"email\": \"ada@example.com\"",
+          "}"
+        ],
+        "form": []
+      }
+    },
+    {
+      "_id": "27beeabf-1113-4218-a9e7-81c78f1fe6fa",
+      "colId": "4241eeaf-208a-46fd-97d0-f9e0498f4832",
+      "containerId": "2049d2cd-023b-448c-af10-4fde22b1ca32",
+      "name": "GET one contact - 200",
+      "url": "http://localhost:3000/api/contacts/{{contactId}}",
+      "method": "GET",
+      "sortNum": 140000,
+      "created": "2026-11-20T21:14:30.791Z",
+      "modified": "2026-11-20T21:14:30.791Z",
+      "headers": [],
+      "params": [],
+      "auth": {
+        "type": "none"
+      },
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "200"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.email",
+          "action": "equal",
+          "value": "ada@example.com"
+        }
+      ]
+    },
+    {
+      "_id": "ec38a20e-c4ee-40a4-9ee0-ee8803f5a631",
+      "colId": "4241eeaf-208a-46fd-97d0-f9e0498f4832",
+      "containerId": "2049d2cd-023b-448c-af10-4fde22b1ca32",
+      "name": "PUT contact without token - 401",
+      "url": "http://localhost:3000/api/contacts/{{contactId}}",
+      "method": "PUT",
+      "sortNum": 150000,
+      "created": "2026-11-20T21:14:30.791Z",
+      "modified": "2026-11-20T21:14:30.791Z",
+      "headers": [],
+      "params": [],
+      "auth": {
+        "type": "none"
+      },
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "401"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": [
+          "{",
+          "  \"email\": \"changed@example.com\"",
+          "}"
+        ],
+        "form": []
+      }
+    },
+    {
+      "_id": "32d325d8-c1d9-4a57-8b74-8c76a3bf10c6",
+      "colId": "4241eeaf-208a-46fd-97d0-f9e0498f4832",
+      "containerId": "2049d2cd-023b-448c-af10-4fde22b1ca32",
+      "name": "PUT update contact - 200",
+      "url": "http://localhost:3000/api/contacts/{{contactId}}",
+      "method": "PUT",
+      "sortNum": 160000,
+      "created": "2026-11-20T21:14:30.791Z",
+      "modified": "2026-11-20T21:14:30.791Z",
+      "headers": [],
+      "params": [],
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{token}}"
+      },
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "200"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.email",
+          "action": "equal",
+          "value": "ada.updated@example.com"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": [
+          "{",
+          "  \"email\": \"ada.updated@example.com\"",
+          "}"
+        ],
+        "form": []
+      }
+    },
+    {
+      "_id": "147735db-1054-4d87-9751-acc7d1815d7e",
+      "colId": "4241eeaf-208a-46fd-97d0-f9e0498f4832",
+      "containerId": "2049d2cd-023b-448c-af10-4fde22b1ca32",
+      "name": "DELETE contact - 200",
+      "url": "http://localhost:3000/api/contacts/{{contactId}}",
+      "method": "DELETE",
+      "sortNum": 170000,
+      "created": "2026-11-20T21:14:30.791Z",
+      "modified": "2026-11-20T21:14:30.791Z",
+      "headers": [],
+      "params": [],
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{token}}"
+      },
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "200"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.message",
+          "action": "equal",
+          "value": "Contact deleted"
+        }
+      ]
+    },
+    {
+      "_id": "9de63bdd-7cea-4611-975e-1b624f28603b",
+      "colId": "4241eeaf-208a-46fd-97d0-f9e0498f4832",
+      "containerId": "c2aa1739-6ab5-450e-bd0c-e56ecee1392d",
+      "name": "POST qualification - 201",
+      "url": "http://localhost:3000/api/qualifications",
+      "method": "POST",
+      "sortNum": 180000,
+      "created": "2026-11-20T21:14:30.791Z",
+      "modified": "2026-11-20T21:14:30.791Z",
+      "headers": [],
+      "params": [],
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{token}}"
+      },
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "201"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.title",
+          "action": "equal",
+          "value": "Database Fundamentals"
+        },
+        {
+          "type": "set-env-var",
+          "custom": "json._id",
+          "action": "setto",
+          "value": "{{qualificationId}}"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": [
+          "{",
+          "  \"title\": \"Database Fundamentals\",",
+          "  \"firstname\": \"API\",",
+          "  \"lastname\": \"Tester\",",
+          "  \"email\": \"tester@example.com\",",
+          "  \"completion\": \"2026-04-30\",",
+          "  \"description\": \"Relational design and SQL\"",
+          "}"
+        ],
+        "form": []
+      }
+    },
+    {
+      "_id": "fd850969-aebc-4ed5-b981-46d03eaf682d",
+      "colId": "4241eeaf-208a-46fd-97d0-f9e0498f4832",
+      "containerId": "c2aa1739-6ab5-450e-bd0c-e56ecee1392d",
+      "name": "GET all qualifications - 200",
+      "url": "http://localhost:3000/api/qualifications",
+      "method": "GET",
+      "sortNum": 190000,
+      "created": "2026-11-20T21:14:30.791Z",
+      "modified": "2026-11-20T21:14:30.791Z",
+      "headers": [],
+      "params": [],
+      "auth": {
+        "type": "none"
+      },
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "200"
+        },
+        {
+          "type": "json-query",
+          "custom": "json",
+          "action": "istype",
+          "value": "array"
+        }
+      ]
+    },
+    {
+      "_id": "aa8d003b-a5a7-48c2-96af-75e05b5064da",
+      "colId": "4241eeaf-208a-46fd-97d0-f9e0498f4832",
+      "containerId": "c2aa1739-6ab5-450e-bd0c-e56ecee1392d",
+      "name": "PUT update qualification - 200",
+      "url": "http://localhost:3000/api/qualifications/{{qualificationId}}",
+      "method": "PUT",
+      "sortNum": 200000,
+      "created": "2026-11-20T21:14:30.791Z",
+      "modified": "2026-11-20T21:14:30.791Z",
+      "headers": [],
+      "params": [],
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{token}}"
+      },
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "200"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.description",
+          "action": "contains",
+          "value": "constraints"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": [
+          "{",
+          "  \"description\": \"Relational design, SQL and constraints\"",
+          "}"
+        ],
+        "form": []
+      }
+    },
+    {
+      "_id": "bcd9dc7c-06d1-474b-aefd-6a8b842c9292",
+      "colId": "4241eeaf-208a-46fd-97d0-f9e0498f4832",
+      "containerId": "c2aa1739-6ab5-450e-bd0c-e56ecee1392d",
+      "name": "DELETE qualification - 200",
+      "url": "http://localhost:3000/api/qualifications/{{qualificationId}}",
+      "method": "DELETE",
+      "sortNum": 210000,
+      "created": "2026-11-20T21:14:30.791Z",
+      "modified": "2026-11-20T21:14:30.791Z",
+      "headers": [],
+      "params": [],
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{token}}"
+      },
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "200"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.message",
+          "action": "equal",
+          "value": "Qualification deleted"
+        }
+      ]
+    },
+    {
+      "_id": "df07cd88-32e4-41e5-82e0-6e4abc17d36c",
+      "colId": "4241eeaf-208a-46fd-97d0-f9e0498f4832",
+      "containerId": "82ce9a09-5f78-4d0e-b921-b397182b4310",
+      "name": "GET invalid id format - 400",
+      "url": "http://localhost:3000/api/projects/12345",
+      "method": "GET",
+      "sortNum": 220000,
+      "created": "2026-11-20T21:14:30.791Z",
+      "modified": "2026-11-20T21:14:30.791Z",
+      "headers": [],
+      "params": [],
+      "auth": {
+        "type": "none"
+      },
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "400"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.error",
+          "action": "equal",
+          "value": "Invalid project ID"
+        }
+      ]
+    },
+    {
+      "_id": "8af59f1e-5ad3-4fc0-8954-d31596e111c7",
+      "colId": "4241eeaf-208a-46fd-97d0-f9e0498f4832",
+      "containerId": "82ce9a09-5f78-4d0e-b921-b397182b4310",
+      "name": "GET unknown route - 404",
+      "url": "http://localhost:3000/api/unknown",
+      "method": "GET",
+      "sortNum": 230000,
+      "created": "2026-11-20T21:14:30.791Z",
+      "modified": "2026-11-20T21:14:30.791Z",
+      "headers": [],
+      "params": [],
+      "auth": {
+        "type": "none"
+      },
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "404"
+        },
+        {
+          "type": "Content-Type",
+          "custom": "",
+          "action": "contains",
+          "value": "application/json"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.error",
+          "action": "equal",
+          "value": "Route not found"
+        }
+      ]
+    },
+    {
+      "_id": "90d88007-fc7e-49aa-b565-df38e61e898a",
+      "colId": "4241eeaf-208a-46fd-97d0-f9e0498f4832",
+      "containerId": "82ce9a09-5f78-4d0e-b921-b397182b4310",
+      "name": "POST broken JSON - 400",
+      "url": "http://localhost:3000/api/contacts",
+      "method": "POST",
+      "sortNum": 240000,
+      "created": "2026-11-20T21:14:30.791Z",
+      "modified": "2026-11-20T21:14:30.791Z",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "params": [],
+      "auth": {
+        "type": "none"
+      },
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "400"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.error",
+          "action": "equal",
+          "value": "Invalid JSON request body"
+        }
+      ],
+      "body": {
+        "type": "text",
+        "raw": [
+          "{ \"firstname\": \"Ada\", "
+        ],
+        "form": []
+      }
+    },
+    {
+      "_id": "359a317c-0707-4261-8b7d-c3332750c946",
+      "colId": "4241eeaf-208a-46fd-97d0-f9e0498f4832",
+      "containerId": "82ce9a09-5f78-4d0e-b921-b397182b4310",
+      "name": "POST with invalid token - 401",
+      "url": "http://localhost:3000/api/projects",
+      "method": "POST",
+      "sortNum": 250000,
+      "created": "2026-11-20T21:14:30.791Z",
+      "modified": "2026-11-20T21:14:30.791Z",
+      "headers": [],
+      "params": [],
+      "auth": {
+        "type": "bearer",
+        "bearer": "this.is.not-a-valid-token"
+      },
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "401"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": [
+          "{",
+          "  \"title\": \"Should fail\"",
+          "}"
+        ],
+        "form": []
+      }
+    },
+    {
+      "_id": "f1497df5-c8b8-4dc4-9505-16ee278911b0",
+      "colId": "4241eeaf-208a-46fd-97d0-f9e0498f4832",
+      "containerId": "82ce9a09-5f78-4d0e-b921-b397182b4310",
+      "name": "POST project invalid date - 400",
+      "url": "http://localhost:3000/api/projects",
+      "method": "POST",
+      "sortNum": 260000,
+      "created": "2026-11-20T21:14:30.791Z",
+      "modified": "2026-11-20T21:14:30.791Z",
+      "headers": [],
+      "params": [],
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{token}}"
+      },
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "400"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": [
+          "{",
+          "  \"title\": \"Bad date\",",
+          "  \"completion\": \"not-a-date\"",
+          "}"
+        ],
+        "form": []
+      }
+    },
+    {
+      "_id": "527f7ba5-5ac3-4b20-9c5c-95ecd999d689",
+      "colId": "4241eeaf-208a-46fd-97d0-f9e0498f4832",
+      "containerId": "80473797-9c3a-4c37-9322-29896fdba1fb",
+      "name": "GET my profile - 200",
+      "url": "http://localhost:3000/api/users/{{userId}}",
+      "method": "GET",
+      "sortNum": 270000,
+      "created": "2026-11-20T21:14:30.791Z",
+      "modified": "2026-11-20T21:14:30.791Z",
+      "headers": [],
+      "params": [],
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{token}}"
+      },
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "200"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.email",
+          "action": "equal",
+          "value": "tester@example.com"
+        }
+      ]
+    },
+    {
+      "_id": "66013bea-df87-4b67-8109-da14b2068e81",
+      "colId": "4241eeaf-208a-46fd-97d0-f9e0498f4832",
+      "containerId": "80473797-9c3a-4c37-9322-29896fdba1fb",
+      "name": "PUT my profile - 200",
+      "url": "http://localhost:3000/api/users/{{userId}}",
+      "method": "PUT",
+      "sortNum": 280000,
+      "created": "2026-11-20T21:14:30.791Z",
+      "modified": "2026-11-20T21:14:30.791Z",
+      "headers": [],
+      "params": [],
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{token}}"
+      },
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "200"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.name",
+          "action": "equal",
+          "value": "API Tester (updated)"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": [
+          "{",
+          "  \"name\": \"API Tester (updated)\"",
+          "}"
+        ],
+        "form": []
+      }
+    },
+    {
+      "_id": "d6e75dbf-d92d-40cc-bc41-84053eabb880",
+      "colId": "4241eeaf-208a-46fd-97d0-f9e0498f4832",
+      "containerId": "80473797-9c3a-4c37-9322-29896fdba1fb",
+      "name": "GET sign out - 200",
+      "url": "http://localhost:3000/auth/signout",
+      "method": "GET",
+      "sortNum": 290000,
+      "created": "2026-11-20T21:14:30.791Z",
+      "modified": "2026-11-20T21:14:30.791Z",
+      "headers": [],
+      "params": [],
+      "auth": {
+        "type": "none"
+      },
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "200"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.message",
+          "action": "equal",
+          "value": "signed out"
+        }
+      ]
+    },
+    {
+      "_id": "b4ac9de5-2ff1-4d5c-b20a-95c58d2feaf8",
+      "colId": "4241eeaf-208a-46fd-97d0-f9e0498f4832",
+      "containerId": "80473797-9c3a-4c37-9322-29896fdba1fb",
+      "name": "DELETE my account - 200 (clean up)",
+      "url": "http://localhost:3000/api/users/{{userId}}",
+      "method": "DELETE",
+      "sortNum": 300000,
+      "created": "2026-11-20T21:14:30.791Z",
+      "modified": "2026-11-20T21:14:30.791Z",
+      "headers": [],
+      "params": [],
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{token}}"
+      },
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "200"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.message",
+          "action": "equal",
+          "value": "User deleted"
+        }
+      ]
+    },
+    {
+      "_id": "c768fc32-6186-479b-abcb-0657eec92252",
+      "colId": "4241eeaf-208a-46fd-97d0-f9e0498f4832",
+      "containerId": "80473797-9c3a-4c37-9322-29896fdba1fb",
+      "name": "Use old token after delete - 401",
+      "url": "http://localhost:3000/api/projects",
+      "method": "POST",
+      "sortNum": 310000,
+      "created": "2026-11-20T21:14:30.791Z",
+      "modified": "2026-11-20T21:14:30.791Z",
+      "headers": [],
+      "params": [],
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{token}}"
+      },
+      "tests": [
+        {
+          "type": "res-code",
+          "custom": "",
+          "action": "equal",
+          "value": "401"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.error",
+          "action": "equal",
+          "value": "User no longer exists. Sign in again."
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": [
+          "{",
+          "  \"title\": \"Should fail\"",
+          "}"
+        ],
+        "form": []
+      }
+    }
+  ],
+  "settings": {}
+}
