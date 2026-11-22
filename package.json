@@ -13,7 +13,7 @@
     "start": "node server.js",
     "start:memory": "node scripts/start-memory.js",
     "dev": "nodemon --watch server --watch config server.js",
-    "test": "node --test --test-concurrency=1 tests/"
+    "test": "node --test --test-concurrency=1 \"tests/*.test.js\""
   },
   "dependencies": {
     "body-parser": "^2.2.0",
